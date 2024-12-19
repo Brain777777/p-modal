@@ -30,9 +30,6 @@ importers:
       '@vitest/coverage-v8':
         specifier: 2.1.8
         version: 2.1.8(@vitest/browser@2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.4.2)(vite@5.4.11(@types/node@22.10.2))(vitest@2.1.8)(webdriverio@9.4.3))(vitest@2.1.8(@types/node@22.10.2)(@vitest/browser@2.1.8)(jsdom@25.0.1)(msw@2.7.0(@types/node@22.10.2)(typescript@5.4.2)))
-      '@vue/test-utils':
-        specifier: ^2.4.6
-        version: 2.4.6
       bumpp:
         specifier: ^9.9.1
         version: 9.9.1(magicast@0.3.5)
