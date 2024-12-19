@@ -3,8 +3,13 @@
   "type": "module",
   "version": "1.0.0",
   "description": "A modal state manager for vue",
-  "author": "",
+  "author": "Brain777777",
   "license": "MIT",
+  "homepage": "https://github.com/Brain777777/p-modal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Brain777777/p-modal.git"
+  },
   "keywords": [
     "vue",
     "modal"
@@ -21,6 +26,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "vite build",
     "lint": "eslint . --fix",
