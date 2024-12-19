@@ -1,18 +1,31 @@
 <script setup lang="ts">
+import { Button, Space } from 'ant-design-vue'
 import { ModalPlaceholder, showModal } from '../../src'
-import TestModal from './components/modal.vue'
+import AntdModal from './components/antd-modal.vue'
+import VantPopup from './components/vant-popup.vue'
 </script>
 
 <template>
-  <div>
-    <button @click="showModal(TestModal)">
-      Show Modal
-    </button>
+  <div class="content">
+    <div class="logo-wrapper">
+      <img src="./assets/vue.svg" alt="logo" class="logo">
+    </div>
+    <Space>
+      <Button @click="showModal(AntdModal)">
+        Show Modal
+      </Button>
+      <Button @click="showModal(VantPopup)">
+        show Popup
+      </Button>
+    </Space>
     <ModalPlaceholder />
   </div>
 </template>
 
 <style scoped>
+.logo-wrapper {
+  text-align: center;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
