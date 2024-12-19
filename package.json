@@ -2,6 +2,7 @@
   "name": "p-modal",
   "type": "module",
   "version": "1.0.0",
+  "packageManager": "pnpm@9.15.0",
   "description": "A modal state manager for vue",
   "author": "Brain777777",
   "license": "MIT",
