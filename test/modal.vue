@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PModalProps } from '../src/types'
 
-const props = defineProps<PModalProps & { count: number }>()
+const props = defineProps<PModalProps & { count?: number }>()
 
 function ok() {
   props.confirm(props.count)
@@ -10,6 +10,10 @@ function ok() {
 function cancel() {
   props.cancel()
   props.close()
+}
+
+const toggle = () => {
+  props.onChange(!props.show)
 }
 </script>
 
@@ -20,5 +24,8 @@ function cancel() {
   </button>
   <button @click="cancel">
     cancel
+  </button>
+  <button @click="toggle">
+    toggle
   </button>
 </template>
