@@ -8,7 +8,7 @@ const MODAL_REGISTRY: Recordable<{
   comp: Component
 }> = {}
 
-function renderComponent(component: Component) {
+function createModalWrapper(component: Component) {
   const Wrapper = defineComponent({
     props: ['id'],
     setup(props) {
@@ -37,7 +37,7 @@ function register(component: Component) {
   const modalID = getModalID(component)
   if (!MODAL_REGISTRY[modalID]) {
     MODAL_REGISTRY[modalID] = {
-      comp: renderComponent(component),
+      comp: createModalWrapper(component),
     }
   }
 }
@@ -54,7 +54,7 @@ export function showModal<R = unknown>(component: Component, props?: Recordable)
     }
     const handler: InnerModalProps = {
       confirm: payload => resolve(payload),
-      cancel: () => reject(new Error('Modal closed')),
+      cancel: () => reject(new Error('cancel')),
       close: () => closeModal(modalID),
       onChange: show => setModal(modalID, show),
       remove: () => {
