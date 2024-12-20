@@ -1,5 +1,5 @@
 <h1 align="center">p-modal</h1>
-<p align="center">A modal state manager for Vue</p>
+<p align="center">In Vue, use imperative management of modal state and support promise</p>
 
 [![NPM](https://img.shields.io/npm/v/p-modal.svg)](https://www.npmjs.com/package/p-modal)
 [![license](https://img.shields.io/npm/l/p-modal)](https://github.com/Brain777777/p-modal/blob/main/LICENSE)
