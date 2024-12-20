@@ -11,9 +11,12 @@ function cancel() {
   props.cancel()
   props.close()
 }
-
 const toggle = () => {
   props.onChange(!props.show)
+}
+
+const remove = () => {
+  props.remove()
 }
 </script>
 
@@ -27,5 +30,8 @@ const toggle = () => {
   </button>
   <button @click="toggle">
     toggle
+  </button>
+  <button @click="remove">
+    remove
   </button>
 </template>
