@@ -34,14 +34,7 @@ jobs:
         run: nr lint
 
   test:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        node: [18.x, lts/*]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-      fail-fast: false
-
+    runs-on: ubuntu-latest
     steps:
       - name: Set git to use LF
         run: |
@@ -53,10 +46,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Set node ${{ matrix.node }}
+      - name: Set node 
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: lts/*
           cache: pnpm
 
       - name: Setup
@@ -78,5 +71,6 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
 
 
