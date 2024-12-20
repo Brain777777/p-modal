@@ -1,29 +1,22 @@
-# p-modal
+<h1 align="center">p-modal</h1>
+<p align="center">A modal state manager for Vue</p>
 
-using imperative management of modals in Vue
+[![NPM](https://img.shields.io/npm/v/p-modal.svg)](https://www.npmjs.com/package/p-modal)
+[![license](https://img.shields.io/npm/l/p-modal)](https://github.com/Brain777777/p-modal/blob/main/LICENSE)
+[![Coverage Status](https://codecov.io/github/Brain777777/p-modal/graph/badge.svg)](https://codecov.io/github/Brain777777/p-modal)
 
-## Installation
-
+## Install
 ```bash
-# with npm
 npm install p-modal
-
-# with yarn
-yarn add p-modal
-
-# with pnpm
-pnpm add p-modal
 ```
 
 ## Usage
-
-1. Embed ModalPlaceholder in the entry file.
+1. Embed ModalPlaceholder in the App.vue.
   ```vue
   <template>
     <ModalPlaceholder />
   </template>
   ```
-
 2. Create a modal component
   ```vue
   <script setup lang="ts">
@@ -56,7 +49,6 @@ pnpm add p-modal
     </AModal>
   </template>
   ```
-
 3. Use global API to open modal
   ```vue
   <script setup lang="ts">
@@ -69,7 +61,7 @@ pnpm add p-modal
   </script>
 
   <template>
-    <button @click="showModal(TestModal)">
+    <button @click="open">
       Show Modal
     </button>
   </template>
@@ -80,5 +72,4 @@ pnpm add p-modal
 Thanks to [nice-modal-react](https://github.com/eBay/nice-modal-react) for providing a good idea.
 
 ## License
-
-This project is licensed under the [MIT License](LICENSE).
+[MIT](LICENSE)  License © 2024 [Brain777777](https://github.com/Brain777777)
