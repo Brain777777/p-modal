@@ -1,9 +1,10 @@
 <h1 align="center">p-modal</h1>
-<p align="center">In Vue, use imperative management of modal state and support promise</p>
 
 [![NPM](https://img.shields.io/npm/v/p-modal.svg)](https://www.npmjs.com/package/p-modal)
 [![license](https://img.shields.io/npm/l/p-modal)](https://github.com/Brain777777/p-modal/blob/main/LICENSE)
 [![Coverage Status](https://codecov.io/github/Brain777777/p-modal/graph/badge.svg)](https://codecov.io/github/Brain777777/p-modal)
+
+This is a tool used in Vue, designed to manage modal boxes in Vue in an imperative manner. It utilizes global reactive to provide the state of modal boxes, allowing you to easily show or hide modal boxes through the modal component.
 
 ## Install
 ```bash
