@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button, Space } from 'ant-design-vue'
-import { ModalPlaceholder, showModal } from '../../src'
+import { ModalPlaceholder, showModal } from 'p-modal'
 import AntdModal from './components/antd-modal.vue'
 import VantPopup from './components/vant-popup.vue'
 </script>

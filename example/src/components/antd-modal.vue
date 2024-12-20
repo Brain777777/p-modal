@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PModalProps } from '../../../src'
+import type { PModalProps } from 'p-modal'
 import { Modal } from 'ant-design-vue'
 
 const props = defineProps<PModalProps>()
