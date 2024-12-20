@@ -1,7 +1,7 @@
 {
   "name": "p-modal",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packageManager": "pnpm@9.15.0",
   "description": "A modal state manager for vue",
   "author": "Brain777777",
@@ -35,7 +35,7 @@
     "lint": "eslint . --fix",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "release": "bumpp"
+    "release": "bumpp && npm publish"
   },
   "dependencies": {
     "vue": "^3.5.13"
