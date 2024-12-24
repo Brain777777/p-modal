@@ -3,6 +3,7 @@
 [![NPM](https://img.shields.io/npm/v/p-modal.svg)](https://www.npmjs.com/package/p-modal)
 [![license](https://img.shields.io/npm/l/p-modal)](https://github.com/Brain777777/p-modal/blob/main/LICENSE)
 [![Coverage Status](https://codecov.io/github/Brain777777/p-modal/graph/badge.svg)](https://codecov.io/github/Brain777777/p-modal)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz_small.svg)](https://stackblitz.com/edit/vitejs-vite-me1aysrn?file=src%2FApp.vue)
 
 This is a tool used in Vue, designed to manage modal boxes in Vue in an imperative manner. It utilizes global reactive to provide the state of modal boxes, allowing you to easily show or hide modal boxes through the modal component.
 
