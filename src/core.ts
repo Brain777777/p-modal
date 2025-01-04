@@ -1,7 +1,7 @@
 import type { Component } from 'vue'
 import type { InnerModalProps, Recordable } from './types'
-import { computed, defineComponent, Fragment, h } from 'vue'
-import { closeModal, deleteModal, get, getStore, openModal, setModal } from './store'
+import { computed, defineComponent, Fragment, h, onUnmounted } from 'vue'
+import { clearStore, closeModal, deleteModal, get, getStore, openModal, setModal } from './store'
 import { getModalID } from './utils'
 
 const MODAL_REGISTRY: Recordable<{
@@ -26,6 +26,9 @@ export const ModalPlaceholder = defineComponent({
   setup() {
     const state = getStore()
     const comps = computed(() => Object.keys(state).map(id => ({ ...MODAL_REGISTRY[id], id })))
+    onUnmounted(() => {
+      clearStore()
+    })
     return () => h(Fragment, null, comps.value.map(t => h(t.comp, {
       key: t.id,
       id: t.id,

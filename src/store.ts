@@ -39,3 +39,9 @@ export function deleteModal(id: string) {
     delete store[id]
   })
 }
+
+export function clearStore() {
+  Object.keys(store).forEach((key) => {
+    delete store[key]
+  })
+}
