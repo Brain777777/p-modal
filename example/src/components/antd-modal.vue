@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { PModalProps } from 'p-modal'
+import type { PModalProps } from '../../../src'
 import { Modal } from 'ant-design-vue'
 
-const props = defineProps<PModalProps>()
+const props = defineProps<PModalProps<number> & { count: number }>()
 
 function confirm() {
-  props.confirm()
+  props.confirm(props.count)
   props.close()
 }
 

@@ -1,8 +1,28 @@
 <script setup lang="ts">
 import { Button, Space } from 'ant-design-vue'
-import { ModalPlaceholder, showModal } from 'p-modal'
+import { ref } from 'vue'
+import { ModalPlaceholder, showModal } from '../../src'
 import AntdModal from './components/antd-modal.vue'
 import VantPopup from './components/vant-popup.vue'
+
+const noop = () => {}
+
+const count = ref(0)
+
+const handleShowModal = () => {
+  showModal(AntdModal, { count: 1 })
+    .then((res) => {
+      count.value = res
+    })
+    .catch(() => {
+      count.value = 0
+    })
+}
+
+const handleShowPopup = () => {
+  showModal(VantPopup)
+    .catch(noop)
+}
 </script>
 
 <template>
@@ -11,13 +31,14 @@ import VantPopup from './components/vant-popup.vue'
       <img src="./assets/vue.svg" alt="logo" class="logo">
     </div>
     <Space>
-      <Button @click="showModal(AntdModal)">
+      <Button @click="handleShowModal">
         Show Modal
       </Button>
-      <Button @click="showModal(VantPopup)">
+      <Button @click="handleShowPopup">
         show Popup
       </Button>
     </Space>
+    <div>result: {{ count }}</div>
     <ModalPlaceholder />
   </div>
 </template>
