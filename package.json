@@ -36,7 +36,7 @@
     "lint": "eslint . --fix",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "release": "bumpp && npm publish --registry https://registry.npmjs.org"
+    "release": "bumpp && npm publish"
   },
   "dependencies": {
     "vue": "^3.5.13"
