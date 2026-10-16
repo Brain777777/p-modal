@@ -1,3 +1,4 @@
+import { copyFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
@@ -30,6 +31,8 @@ export default defineConfig({
     dts({
       rollupTypes: true,
       include: ['src/**/*.ts'],
+      // `require` consumers need a `.d.cts` next to `index.cjs` under node16/nodenext resolution
+      afterBuild: () => copyFileSync(resolve(__dirname, 'dist/index.d.ts'), resolve(__dirname, 'dist/index.d.cts')),
     }),
     vue(),
   ],

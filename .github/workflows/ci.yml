@@ -33,6 +33,9 @@ jobs:
       - name: Lint
         run: nr lint
 
+      - name: Typecheck
+        run: nr typecheck
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +49,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Set node 
+      - name: Set node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
@@ -62,12 +65,7 @@ jobs:
         run: nr build
 
       - name: Test
-        run: nr test
-
-      - name: Coverage
         run: nr coverage
 
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v5
-
-

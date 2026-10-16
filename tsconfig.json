@@ -7,11 +7,11 @@
     "resolveJsonModule": true,
     "strict": true,
     "strictNullChecks": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "esModuleInterop": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
+  "include": ["src", "test"],
   "exclude": ["node_modules", "dist", "example"]
 }

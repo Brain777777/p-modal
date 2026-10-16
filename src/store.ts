@@ -1,5 +1,5 @@
 import type { Recordable, Value } from './types'
-import { nextTick, reactive } from 'vue'
+import { reactive } from 'vue'
 
 const store = reactive<Recordable<Value>>({})
 
@@ -20,6 +20,10 @@ export function openModal(id: string, props?: Recordable) {
 }
 
 export function setModal(id: string, show: boolean) {
+  // Ignore late calls (e.g. a UI library emitting `update:open` after removal)
+  // so a removed modal is not resurrected without a registered component.
+  if (!get(id))
+    return
   return set(id, {
     ...get(id),
     show,
@@ -27,6 +31,8 @@ export function setModal(id: string, show: boolean) {
 }
 
 export function closeModal(id: string) {
+  if (!get(id))
+    return
   return set(id, {
     ...get(id),
     show: false,
@@ -35,9 +41,7 @@ export function closeModal(id: string) {
 }
 
 export function deleteModal(id: string) {
-  nextTick(() => {
-    delete store[id]
-  })
+  delete store[id]
 }
 
 export function clearStore() {

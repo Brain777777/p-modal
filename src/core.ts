@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import type { ComponentProps, ExcludePropsKeys, InnerModalProps, Parameter, Recordable } from './types'
+import type { ComponentProps, InnerModalProps, Parameter, Recordable, ShowModalArgs } from './types'
 import { computed, defineComponent, Fragment, h, onUnmounted } from 'vue'
 import { clearStore, closeModal, deleteModal, get, getStore, openModal, setModal } from './store'
 import { getModalID } from './utils'
@@ -49,7 +49,7 @@ function unregister(modalID: string) {
   delete MODAL_REGISTRY[modalID]
 }
 
-export function showModal<T extends Component>(component: T, props?: Omit<ComponentProps<T>, ExcludePropsKeys>) {
+export function showModal<T extends Component>(component: T, ...[props]: ShowModalArgs<T>) {
   return new Promise<Parameter<ComponentProps<T>['confirm']>>((resolve, reject) => {
     const modalID = getModalID(component)
     if (!MODAL_REGISTRY[modalID]) {
