@@ -17,6 +17,10 @@ npm install p-modal
 ## 使用方法
 1. 在 App.vue 中使用 ModalPlaceholder。
   ```vue
+  <script setup lang="ts">
+  import { ModalPlaceholder } from 'p-modal'
+  </script>
+
   <template>
     <ModalPlaceholder />
   </template>
@@ -29,10 +33,10 @@ npm install p-modal
 2. 创建一个 Modal 组件
   ```vue
   <script setup lang="ts">
-  import { Button, Modal } from 'ant-design-vue'
-  import { PModalProps } from 'p-modal'
+  import type { PModalProps } from 'p-modal'
+  import { Modal } from 'ant-design-vue'
 
-  defineProps<PModalProps>()
+  const props = defineProps<PModalProps>()
 
   const confirm = () => {
     props.confirm()
@@ -66,6 +70,12 @@ npm install p-modal
 
   const handleOpen = () => {
     showModal(MyModal)
+      .then((payload) => {
+        // confirmed
+      })
+      .catch(() => {
+        // cancelled
+      })
   }
   </script>
 
@@ -75,6 +85,8 @@ npm install p-modal
     </button>
   </template>
   ```
+
+  > `showModal` 返回一个 Promise：调用 `confirm(payload)` 时 resolve 为 `payload`，调用 `cancel()` 时以 `Error('cancel')` reject。请处理 reject，否则取消时会产生 unhandled promise rejection。
 
 ## 致谢
 

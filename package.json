@@ -17,8 +17,14 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "main": "dist/index.cjs",
@@ -31,15 +37,17 @@
     "access": "public"
   },
   "scripts": {
-    "prepublishOnly": "nr build",
+    "prepublishOnly": "pnpm build",
     "build": "vite build",
-    "lint": "eslint . --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "vue-tsc --noEmit",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "release": "bumpp && npm publish"
   },
-  "dependencies": {
-    "vue": "^3.5.13"
+  "peerDependencies": {
+    "vue": "^3.2.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.12.0",
@@ -53,6 +61,8 @@
     "typescript": "^5.4.2",
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.3.0",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.1.10"
   }
 }

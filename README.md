@@ -17,6 +17,10 @@ npm install p-modal
 ## Usage
 1. Embed ModalPlaceholder in the App.vue.
   ```vue
+  <script setup lang="ts">
+  import { ModalPlaceholder } from 'p-modal'
+  </script>
+
   <template>
     <ModalPlaceholder />
   </template>
@@ -29,10 +33,10 @@ npm install p-modal
 2. Create a modal component
   ```vue
   <script setup lang="ts">
-  import { Button, Modal } from 'ant-design-vue'
-  import { PModalProps } from 'p-modal'
+  import type { PModalProps } from 'p-modal'
+  import { Modal } from 'ant-design-vue'
 
-  defineProps<PModalProps>()
+  const props = defineProps<PModalProps>()
 
   const confirm = () => {
     props.confirm()
@@ -66,6 +70,12 @@ npm install p-modal
 
   const handleOpen = () => {
     showModal(MyModal)
+      .then((payload) => {
+        // confirmed
+      })
+      .catch(() => {
+        // cancelled
+      })
   }
   </script>
 
@@ -75,6 +85,8 @@ npm install p-modal
     </button>
   </template>
   ```
+
+  > `showModal` returns a Promise: it resolves with the value passed to `confirm(payload)` and rejects with `Error('cancel')` when `cancel()` is called. Handle the rejection, otherwise cancelling produces an unhandled promise rejection.
 
 ## Thanks
 

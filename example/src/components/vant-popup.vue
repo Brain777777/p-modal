@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PModalProps } from 'p-modal'
+import type { PModalProps } from '../../../src'
 import { Button, Popup } from 'vant'
 
 const props = defineProps<PModalProps>()
