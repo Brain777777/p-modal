@@ -44,7 +44,7 @@
     "typecheck": "vue-tsc --noEmit",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "release": "bumpp && npm publish"
+    "release": "bumpp"
   },
   "peerDependencies": {
     "vue": "^3.2.0"

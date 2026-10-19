@@ -1,16 +1,42 @@
+# Release from GitHub: Actions → Release → Run workflow, then pick the version bump.
+#   patch / minor / major: bump package.json, commit "chore: release vX.Y.Z", tag and push
+#   current:               tag and release the version already in package.json
+# Pushing a `v*` tag (e.g. from a local `pnpm release`) publishes as well.
+#
+# One-time setup: on npmjs.com, open p-modal → Settings → Trusted Publisher and add
+# GitHub Actions with owner `Brain777777`, repository `p-modal`, workflow `release.yml`.
+# No npm token is stored in the repository; publishing authenticates through OIDC.
+
 name: Release
 
-permissions:
-  contents: write
-
 on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version bump
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - current
+        default: patch
   push:
     tags:
       - 'v*'
 
+concurrency:
+  group: release
+
+permissions:
+  contents: write
+
 jobs:
-  release:
+  version:
+    if: github.event_name == 'push' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,7 +49,78 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
+          cache: pnpm
 
-      - run: npx changelogithub
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # Verify before anything is tagged, so a failing check never leaves a dangling tag
+      - name: Check
+        run: |
+          pnpm lint
+          pnpm typecheck
+          pnpm vitest run
+          pnpm build
+
+      - name: Bump version
+        if: github.event_name == 'workflow_dispatch'
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          BUMP: ${{ inputs.bump }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if [ "$BUMP" = current ]; then
+            tag="v$(node -p "require('./package.json').version")"
+            git tag -a "$tag" -m "$tag"
+            git push origin "$tag"
+          else
+            pnpm bumpp "$BUMP" --yes
+          fi
+
+      - name: Resolve tag
+        id: tag
+        env:
+          EVENT: ${{ github.event_name }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          tag="v$(node -p "require('./package.json').version")"
+          if [ "$EVENT" = push ] && [ "$tag" != "$REF_NAME" ]; then
+            echo "::error::Tag $REF_NAME does not match package.json version $tag"
+            exit 1
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+  # Separate job so a failed publish can be retried with "Re-run failed jobs" without bumping again
+  publish:
+    needs: version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the GitHub Release
+      id-token: write # npm trusted publishing and provenance
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.tag }}
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      # No `registry-url`: setup-node would then inject a placeholder NODE_AUTH_TOKEN,
+      # which can take precedence over OIDC. Trusted publishing needs npm >= 11.5.1 (Node 24+).
+      - name: Set node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Publish to npm
+        run: npm publish
+
+      - name: Create GitHub Release
+        run: npx changelogithub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
